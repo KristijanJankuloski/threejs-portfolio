@@ -19,9 +19,8 @@ canvas {
 }
 
 #app {
-  position: absolute;
+  position: relative;
   z-index: 3;
-  width: 100%;
   /* overflow-x: hidden; */
   /* display: flex;
   justify-content: center; */
@@ -29,7 +28,8 @@ canvas {
 
 main {
   max-width: 1250px;
-  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
   padding-top: 16px;
 }
 
