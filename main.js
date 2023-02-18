@@ -33,7 +33,7 @@ renderer.render(scene, camera);
 
 // scene.add(torus);
 
-const earthGeo = new THREE.SphereGeometry(10, 42, 24);
+const earthGeo = new THREE.SphereGeometry(12, 42, 24);
 const earthDiffuse = new THREE.TextureLoader().load('./assets/earth/Earth_Diffuse_6K.jpg');
 const earthNormal = new THREE.TextureLoader().load('./assets/earth/Earth_NormalNRM_6K.jpg');
 const earthMat = new THREE.MeshStandardMaterial({map:earthDiffuse, normalMap:earthNormal});
@@ -49,7 +49,7 @@ function addStar() {
   const material = new THREE.MeshBasicMaterial({color: 0xffffff});
   const star = new THREE.Mesh(geometry, material);
 
-  const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(200));
+  const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(250));
   star.position.set(x,y,z);
   scene.add(star);
 }
@@ -57,7 +57,7 @@ function addStar() {
 
 function moveCamera() {
   const topOfPage = document.body.getBoundingClientRect().top;
-  camera.position.z = (topOfPage * - 0.04) + 30;
+  camera.position.z = (topOfPage * - 0.06) + 30;
   camera.position.x = topOfPage * 0.02;
   camera.rotation.y = topOfPage * -0.0001;
   // camera.position.y += topOfPage * - 0.001;
@@ -65,7 +65,7 @@ function moveCamera() {
 
 document.body.onscroll = moveCamera;
 
-Array(220).fill().forEach(addStar);
+Array(250).fill().forEach(addStar);
 
 const spaceTexture = new THREE.TextureLoader().load('./assets/space-bg.avif');
 scene.background = spaceTexture;
@@ -74,7 +74,7 @@ scene.background = spaceTexture;
 function animate() {
   requestAnimationFrame(animate);
   
-  earth.rotation.y += 0.003;
+  earth.rotation.y += 0.002;
   // torus.rotation.x += 0.01;
   // torus.rotation.y += 0.005;
   // torus.rotation.z += 0.01;
