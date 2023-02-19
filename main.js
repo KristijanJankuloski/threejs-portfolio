@@ -8,18 +8,13 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 
 const renderer = new THREE.WebGL1Renderer({canvas:document.querySelector("#bg")});
 
-// const pointLight = new THREE.PointLight(0xffffff);
-// pointLight.position.set(-25,35,35);
-// scene.add(pointLight);
-
 const directLight = new THREE.DirectionalLight(0xffffff);
-directLight.position.z = 80;
+directLight.position.z = 100;
 directLight.position.x = -120;
 directLight.position.y = 15;
 scene.add(directLight);
-
-// const ambientLight = new THREE.AmbientLight(0xffffff, 0.05);
-// scene.add(ambientLight);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.05);
+scene.add(ambientLight);
 
 // HELPERS AND CONTROLS
 // const lightHelper = new THREE.PointLightHelper(pointLight);
@@ -46,13 +41,21 @@ earth.position.x = 15;
 earth.position.y = -5;
 scene.add(earth);
 
+const earthAtmos = new THREE.SphereGeometry(12.1, 42, 24);
+const atmosMat = new THREE.MeshStandardMaterial({color:'#05cbf7',transparent:true, opacity:0.2});
+const atmosphere = new THREE.Mesh(earthAtmos, atmosMat);
+atmosphere.position.z = 10;
+atmosphere.position.x = 15;
+atmosphere.position.y = -5;
+scene.add(atmosphere);
+
 const moonGeo = new THREE.SphereGeometry(6, 42, 24);
 const moonDiffuse = new THREE.TextureLoader().load('./assets/moon/moon_diffuse.jpg');
 const moonNormal = new THREE.TextureLoader().load('./assets/moon/moon_normal.jpg');
 const moonMat = new THREE.MeshStandardMaterial({map:moonDiffuse, normalMap:moonNormal});
 const moon = new THREE.Mesh(moonGeo, moonMat);
-// moon.position.z = 80;
-// moon.position.x = -35;
+moon.position.z = 120;
+moon.position.x = -40;
 scene.add(moon);
 
 function addStar() {
@@ -64,6 +67,7 @@ function addStar() {
   star.position.set(x,y,z);
   scene.add(star);
 }
+Array(200).fill().forEach(addStar);
 
 // ADD ROCKET
 const objLoader = new OBJLoader();
@@ -76,14 +80,10 @@ const objLoader = new OBJLoader();
 //   camera.rotation.y = topOfPage * -0.0001;
 //   // camera.position.y += topOfPage * - 0.001;
 // }
-
 // document.body.onscroll = moveCamera;
-
-Array(250).fill().forEach(addStar);
 
 const spaceTexture = new THREE.TextureLoader().load('./assets/space-bg.avif');
 scene.background = spaceTexture;
-
 
 function animate() {
   requestAnimationFrame(animate);
